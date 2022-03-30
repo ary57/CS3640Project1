@@ -11,7 +11,7 @@ serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  ## changed thi
 #Prepare the sever socket
 #FillInStart
 serverSocket.bind(('',80))
-serverSocket.listen(0)
+serverSocket.listen(1)
 #FillInEnd 
 
 while True:    
