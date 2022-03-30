@@ -1,10 +1,10 @@
 from multiprocessing import connection
 import socket
-import sys 
+import sys
 import os
 
 from debugpy import connect
- 
+
 #Create a TCP server socket
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  ## changed this line. added socket. infront of AF_nET and sock_steram
 
@@ -12,6 +12,7 @@ serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  ## changed thi
 #FillInStart
 serverSocket.bind(('',80))
 serverSocket.listen(1)
+print("The server is ready to receive")
 #FillInEnd 
 
 while True:    
