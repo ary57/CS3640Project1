@@ -20,7 +20,7 @@ def recvall(sock):
 listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # FillInStart
 listenerPort = 12000
-listener.bind(('', listenerPort))
+listener.bind(('172.17.90.134', listenerPort)) # had to put my IP here. couldn't run without my ip address. 
 listener.listen(1)
 # FillInEnd
 print('Ready to serve...')
@@ -81,7 +81,7 @@ while True:
         # FillInEnd
 
         # using the port you have created above to send the GET request
-        serverSide.send(GET_request)
+        serverSide.send(GET_request.encode())
 
         # receive the response using recvall in case the response takes more 
         # than one send by the server to send
@@ -101,7 +101,7 @@ while True:
 
     # send the outputdata (GET response) back to the client
     # FillInStart 
-    clientSide.send(outputdata.encode())
+    clientSide.send(outputdata)
     # FillInEnd
     print("data sent")
 
