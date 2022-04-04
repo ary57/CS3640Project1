@@ -6,7 +6,7 @@ import os
 from black import out
  
 # http://<server-ip-addr>:<server- port-number>/<file-name>
-# http://172.17.90.134:12001/hi.html
+# http://172.17.90.134:12000/hi.html
 # http://129.255.226.172:12000/hi.html
 
 #Create a TCP server socket
@@ -49,6 +49,7 @@ while True:
         
         #Send the HTTP response header line to the connection socket
         #FillInStart
+        print("HTTP/1.1 200\r\n")
         connectionSocket.send("HTTP/1.1 200\r\n\r\n".encode())
         #FillInEnd
 
@@ -63,12 +64,12 @@ while True:
     except IOError:
         #Send HTTP response message for file not found
         #FillInStart
-        print("!!IO ERROR")
+        print("HTTP/1.1 404 FILE NOT FOUND\r\n")
         # connectionSocket.send("HTTP/1.1 404 FILE NOT FOUND".encode())
         connectionSocket.send("HTTP/1.1 404\r\n\r\n".encode())
         #FillInEnd
         
-        #Close client socket 
+        #Close client socket
         connectionSocket.close()
 
 #Terminate the program

@@ -1,3 +1,4 @@
+from http import client, server
 import socket
 import sys
 import os
@@ -18,20 +19,16 @@ def recvall(sock):
 # Create a server socket, bind it to a port and start listening
 listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # FillInStart
-serverPort = 80
-socket.bind(('',serverPort))
-socket.listen(1)
+listenerPort = 12000
+listener.bind(('', listenerPort))
+listener.listen(1)
 # FillInEnd
 print('Ready to serve...')
 
-serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 while True:
     # accept a connection from the client side and decode the message/request
     clientSide, addr = listener.accept()
-    message =0
-    #FillInStart
-    clientSide.recv(4096)
-    # #FillInEnd
+    message = clientSide.recv(4096).decode() #FillInStart #FillInEnd
     # for now, lets ignore all the requests that are not GET
     # the remaining requests will just be discarded and the client 
     # will receive no response for those requests
@@ -79,13 +76,12 @@ while True:
 
         # we open the socket to the server and make the request at port 80
         # FillInStart
-        serverSide = 80
-        serverSocket.bind('', serverSide)
-        serverSocket.listen(1)
+        serverSide = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        serverSide.connect((domain, 80))
         # FillInEnd
 
         # using the port you have created above to send the GET request
-        serverSide.send(GET_request.encode())  
+        serverSide.send(GET_request)
 
         # receive the response using recvall in case the response takes more 
         # than one send by the server to send
@@ -104,8 +100,8 @@ while True:
         outputdata = GET_response
 
     # send the outputdata (GET response) back to the client
-    # FillInStart
-    serverSide.send(outputdata)
+    # FillInStart 
+    clientSide.send(outputdata.encode())
     # FillInEnd
     print("data sent")
 
